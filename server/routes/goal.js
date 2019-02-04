@@ -8,6 +8,6 @@ const router = express.Router();
 router.get('/goals', goalController.getGoals);
 
 // POST /goal
-router.post('goal', goalController.createGoal);
+router.post('/goal', goalController.createGoal);
 
 module.exports = router;

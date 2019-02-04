@@ -9,6 +9,7 @@ import { FormsModule } from '@angular/forms';
 import { MainPageComponent } from './main-page/main-page.component';
 import { DetailPageComponent } from './detail-page/detail-page.component';
 import { HeaderComponent } from './core/header/header.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
    declarations: [
@@ -23,7 +24,8 @@ import { HeaderComponent } from './core/header/header.component';
       BrowserAnimationsModule,
       MaterialModule,
       FormsModule,
-      AppRoutingModule
+      AppRoutingModule,
+      HttpClientModule
    ],
    providers: [],
    bootstrap: [
