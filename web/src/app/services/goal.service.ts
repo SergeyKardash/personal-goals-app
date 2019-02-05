@@ -22,7 +22,7 @@ getGoals$() {
 }
 
 postGoal(goal) {
-  this.httpClient.post(`${this.URL}/goal`, goal).subscribe(v => console.log(v));
+  this.httpClient.post(`${this.URL}/goal`, goal).toPromise().then(v => console.log(v));
 }
 
 }
