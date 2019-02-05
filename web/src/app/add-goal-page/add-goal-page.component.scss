@@ -45,3 +45,14 @@
 /deep/.mat-focused .mat-form-field-underline .mat-form-field-ripple {
   background: #66b3ff;
 }
+
+
+@media (max-width: 900px) {
+  .add-goal {
+    padding: 30px 30px;
+    .card {
+      width: unset;
+      padding: 30px 15px;
+    }
+  }
+}
