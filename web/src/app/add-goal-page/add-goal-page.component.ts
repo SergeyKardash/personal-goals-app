@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { FormGroup, FormControl, Validators, FormGroupDirective, NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { GoalService } from '../services/goal.service';
 import { Goal } from '../models/goal.model';
@@ -12,22 +12,27 @@ import { Goal } from '../models/goal.model';
 export class AddGoalPageComponent implements OnInit {
   addGoalForm: FormGroup;
 
+  @ViewChild('title') title: ElementRef;
+
   constructor( private router: Router, private goalService: GoalService) { }
 
   ngOnInit() {
+    this.title.nativeElement.focus();
     this.addGoalForm = new FormGroup({
-      'title': new FormControl(null),
+      'title': new FormControl(null, Validators.required),
       'description': new FormControl(null)
     });
   }
 
   onAddGoal() {
-    const goal: Goal = this.addGoalForm.value;
-    this.goalService.postGoal(goal)
-      .then(result => {
-        this.router.navigate(['']);
-      })
-      .catch(err => console.log(err));
+    if (this.addGoalForm.valid) {
+      const goal: Goal = this.addGoalForm.value;
+      this.goalService.postGoal(goal)
+        .then(result => {
+          this.router.navigate(['']);
+        })
+        .catch(err => console.log(err));
+    }
   }
 
   onCancel() {

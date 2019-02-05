@@ -4,7 +4,10 @@
     <div class="card-title">Add new Goal</div>
     <form [formGroup]="addGoalForm" class="card-form">
       <mat-form-field>
-        <input matInput placeholder="Goal" autocomplete="off" formControlName="title">
+        <input matInput placeholder="Goal" autocomplete="off" formControlName="title" #title>
+          <mat-error *ngIf="addGoalForm.get('title').hasError('required')">
+            Title is <strong>required</strong>
+          </mat-error>
       </mat-form-field>
       <mat-form-field>
         <textarea matInput matTextareaAutosize placeholder="Goal Description" formControlName="description"></textarea>
