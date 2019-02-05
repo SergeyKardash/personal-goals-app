@@ -5,18 +5,20 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './shared/material.module';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MainPageComponent } from './main-page/main-page.component';
 import { DetailPageComponent } from './detail-page/detail-page.component';
 import { HeaderComponent } from './core/header/header.component';
 import { HttpClientModule } from '@angular/common/http';
+import { AddGoalPageComponent } from './add-goal-page/add-goal-page.component';
 
 @NgModule({
    declarations: [
       AppComponent,
       MainPageComponent,
       DetailPageComponent,
-      HeaderComponent
+      HeaderComponent,
+      AddGoalPageComponent
    ],
    imports: [
       BrowserModule,
@@ -24,6 +26,7 @@ import { HttpClientModule } from '@angular/common/http';
       BrowserAnimationsModule,
       MaterialModule,
       FormsModule,
+      ReactiveFormsModule,
       AppRoutingModule,
       HttpClientModule
    ],

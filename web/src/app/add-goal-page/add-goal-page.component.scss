@@ -1,0 +1,42 @@
+.add-goal {
+  padding: 30px 100px;
+
+  .card {
+    margin: 0 auto;
+    width: 50%;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+    padding: 30px;
+
+    &-title {
+      padding: 15px 30px;
+    }
+
+    &-form {
+      padding: 0 30px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .action-buttons {
+      display: flex;
+      justify-content: center;
+      button {
+        margin: 0 15px;
+      }
+      .add-button {
+        background-color: #66b3ff;
+        color: #fff;
+      }
+    }
+  }
+}
+
+/deep/.mat-form-field.mat-focused {
+  .mat-form-field-label {
+    color: #66b3ff;
+  }
+}
+
+/deep/.mat-focused .mat-form-field-underline .mat-form-field-ripple {
+  background: #66b3ff;
+}

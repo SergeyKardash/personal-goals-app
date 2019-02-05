@@ -1,0 +1,18 @@
+<app-header></app-header>
+<section class="add-goal">
+  <div class="card">
+    <div class="card-title">Add new Goal</div>
+    <form [formGroup]="addGoalForm" class="card-form">
+      <mat-form-field>
+        <input matInput placeholder="Goal" autocomplete="off" formControlName="title">
+      </mat-form-field>
+      <mat-form-field>
+        <textarea matInput matTextareaAutosize placeholder="Goal Description" formControlName="description"></textarea>
+      </mat-form-field>
+    </form>
+    <div class="action-buttons">
+        <button mat-raised-button class="cancel-button" (click)="onCancel()">Cancel</button>
+        <button mat-raised-button class="add-button" (click)="onAddGoal()">Add Goal</button>
+    </div>
+  </div>
+</section>
