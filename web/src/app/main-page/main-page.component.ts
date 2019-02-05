@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { GoalService } from '../services/goal.service';
 
 @Component({
   selector: 'app-main-page',
@@ -9,10 +10,10 @@ import { Router } from '@angular/router';
 })
 export class MainPageComponent implements OnInit {
 
-  constructor( private  httpClient: HttpClient, private router: Router ) { }
+  constructor( private  httpClient: HttpClient, private router: Router, private goalService: GoalService ) { }
 
   ngOnInit() {
-    this.httpClient.get('http://localhost:8080/goals').subscribe(v => console.log(v));
+    this.goalService.getGoals()
   }
 
   navigateOnAddGoal() {

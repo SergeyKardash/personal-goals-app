@@ -11,6 +11,7 @@ import { DetailPageComponent } from './detail-page/detail-page.component';
 import { HeaderComponent } from './core/header/header.component';
 import { HttpClientModule } from '@angular/common/http';
 import { AddGoalPageComponent } from './add-goal-page/add-goal-page.component';
+import { GoalService } from './services/goal.service';
 
 @NgModule({
    declarations: [
@@ -30,7 +31,7 @@ import { AddGoalPageComponent } from './add-goal-page/add-goal-page.component';
       AppRoutingModule,
       HttpClientModule
    ],
-   providers: [],
+   providers: [GoalService],
    bootstrap: [
       AppComponent
    ]
