@@ -22,8 +22,11 @@ export class AddGoalPageComponent implements OnInit {
 
   onAddGoal() {
     const goal = this.addGoalForm.value;
-    this.goalService.postGoal(goal);
-    this.router.navigate(['']);
+    this.goalService.postGoal(goal)
+      .then(result => {
+        this.router.navigate(['']);
+      })
+      .catch(err => console.log(err));
   }
 
   onCancel() {

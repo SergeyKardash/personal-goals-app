@@ -1,15 +1,30 @@
+const Goal = require('../models/goal')
+
 exports.getGoals = (req, res, next) => {
-  res.status(200).json({
-    goals: [{title: 'Firs Goal', description: 'Goal Description'}]
-  });
+  Goal.find()
+    .then(result => {
+      console.log(result);
+      res.status(200).json({
+        goals: result
+      });
+    })
+    .catch(err => console.log(err))
 };
 
 exports.createGoal = (req, res, next) => {
   const title = req.body.title;
   const description = req.body.description;
-  // Create Goal in db
-  res.status(201).json({
-    message: 'Goal created successfully!',
-    goal: { id: new Date().toISOString(), title: title, description: description}
+  const goal = new Goal({
+    title: title, 
+    description: description
   });
+  goal.save()
+    .then(result => {
+      console.log(result);
+      res.status(201).json({
+        message: 'Goal created successfully!',
+        goal: result
+      });
+    })
+    .catch(err => console.log(err))
 };

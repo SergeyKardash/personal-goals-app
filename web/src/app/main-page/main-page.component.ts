@@ -14,11 +14,11 @@ export class MainPageComponent implements OnInit {
   constructor( private  httpClient: HttpClient, private router: Router, private goalService: GoalService ) { }
 
   ngOnInit() {
-    this.goals$ = this.goalService.getGoals$()
+    this.goals$ = this.goalService.getGoals$();
   }
 
   navigateOnAddGoal() {
-    this.router.navigate(['add-goal'])
+    this.router.navigate(['add-goal']);
   }
 
 }
