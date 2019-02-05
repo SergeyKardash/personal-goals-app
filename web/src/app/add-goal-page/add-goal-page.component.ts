@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
+import { GoalService } from '../services/goal.service';
 
 @Component({
   selector: 'app-add-goal-page',
@@ -10,7 +11,7 @@ import { Router } from '@angular/router';
 export class AddGoalPageComponent implements OnInit {
   addGoalForm: FormGroup;
 
-  constructor( private router: Router) { }
+  constructor( private router: Router, private goalService: GoalService) { }
 
   ngOnInit() {
     this.addGoalForm = new FormGroup({
@@ -20,7 +21,8 @@ export class AddGoalPageComponent implements OnInit {
   }
 
   onAddGoal() {
-    console.log(this.addGoalForm.value);
+    const goal = this.addGoalForm.value;
+    this.goalService.postGoal(goal);
     this.router.navigate(['']);
   }
 

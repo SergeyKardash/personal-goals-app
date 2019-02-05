@@ -9,11 +9,12 @@ import { GoalService } from '../services/goal.service';
   styleUrls: ['./main-page.component.scss']
 })
 export class MainPageComponent implements OnInit {
+  goals$
 
   constructor( private  httpClient: HttpClient, private router: Router, private goalService: GoalService ) { }
 
   ngOnInit() {
-    this.goalService.getGoals()
+    this.goals$ = this.goalService.getGoals$()
   }
 
   navigateOnAddGoal() {
