@@ -9,7 +9,7 @@ import { GoalService } from '../services/goal.service';
   styleUrls: ['./main-page.component.scss']
 })
 export class MainPageComponent implements OnInit {
-  goals$
+  goals$;
 
   constructor( private  httpClient: HttpClient, private router: Router, private goalService: GoalService ) { }
 
