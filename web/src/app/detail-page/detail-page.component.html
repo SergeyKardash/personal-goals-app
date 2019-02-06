@@ -1,1 +1,28 @@
-
+<app-header></app-header>
+<section class="goal-details">
+  <div class="card">
+    <div class="card-header"></div>
+    <div class="card-top-row">
+      <div class="card-date">{{goal?.createdAt | date: 'MMM d, y HH:mm'}}</div>
+      <div class="action-buttons">
+        <button *ngIf="!editMode" mat-raised-button class="edit-button" (click)="onEditMode()">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button *ngIf="editMode" mat-raised-button class="save-button" (click)="onSave()">
+          <mat-icon>save</mat-icon>
+        </button>
+        <button mat-raised-button class="remove-button" (click)="onRemove()">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </div>
+    </div>
+    <div *ngIf="!editMode" class="card-title">{{goal?.title}}</div>
+    <mat-form-field *ngIf="editMode" class="card-title-input">
+      <input matInput placeholder="Goal" autocomplete="off" [value]="goal?.title">
+    </mat-form-field>
+    <div *ngIf="!editMode" class="card-description">{{goal?.description}}</div>
+    <mat-form-field *ngIf="editMode" class="card-description-input">
+      <textarea matInput matTextareaAutosize placeholder="Goal Description" [value]="goal?.description"></textarea>
+    </mat-form-field>
+  </div>
+</section>

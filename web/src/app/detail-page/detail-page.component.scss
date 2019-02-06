@@ -1,0 +1,86 @@
+.goal-details {
+  padding: 30px 100px;
+  .card {
+    margin: 0 auto;
+    padding-bottom: 30px;
+    width: 75%;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+    &-header {
+      width: 100%;
+      height: 15px;
+      background-color: #fff;
+        &.met {
+          background-color: #66bb6a;
+        }
+        &.surpassed {
+          background-color: #ffee58;
+        }
+        &.failed {
+          background-color: #ef5350;
+        }
+    }
+    &-top-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      .action-buttons {
+        margin-right: 30px;
+        button {
+          margin-right: 15px;
+          color: #fff;
+          &.edit-button {
+            background-color: #42a5f5;
+            &:hover {
+              background-color: #2196f3;
+            }
+          }
+          &.save-button {
+            background-color: #66bb6a;
+            &:hover {
+              background-color: #4caf50;
+            }
+          }
+          &.remove-button {
+            background-color: #ef5350;
+            &:hover {
+              background-color: #f44336;
+            }
+          }
+        }
+      }
+    }
+    &-date {
+      margin: 15px 30px 5px;
+      color: #AAA;
+      font-size: 1em;
+      font-weight: 600;
+      text-transform: uppercase;
+      word-spacing: 2px;
+    }
+    &-title {
+      margin: 15px 30px;
+      font-size: 1.5em;
+    }
+    &-title-input {
+      margin: 15px 30px;
+    }
+    &-description-input {
+      display: block;
+      margin: 15px 30px;
+    }
+    &-description {
+      margin: 30px;
+      font-size: 1.2em;
+    }
+  }
+}
+
+/deep/.mat-form-field.mat-focused {
+  .mat-form-field-label {
+    color: #66b3ff;
+  }
+}
+
+/deep/.mat-focused .mat-form-field-underline .mat-form-field-ripple {
+  background: #66b3ff;
+}

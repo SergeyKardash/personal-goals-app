@@ -13,6 +13,7 @@ export class DetailPageComponent implements OnInit, OnDestroy {
   alive = true;
   id: number;
   goal: Goal;
+  editMode = false;
 
   constructor( private route: ActivatedRoute, private goalService: GoalService ) { }
 
@@ -25,7 +26,20 @@ export class DetailPageComponent implements OnInit, OnDestroy {
       })
     ).subscribe((goal: Goal) => {
       this.goal = goal;
+      console.log(goal);
     });
+  }
+
+  onEditMode() {
+    this.editMode = true;
+  }
+
+  onSave() {
+    this.editMode = false;
+  }
+
+  onRemove() {
+    
   }
 
   ngOnDestroy() {

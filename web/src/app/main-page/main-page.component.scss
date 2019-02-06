@@ -2,7 +2,7 @@
   padding: 0 100px;
   .add-button {
     margin-top: 30px;
-    background-color: #66b3ff;
+    background-color: #42a5f5;
     color: #fff;
   }
   .cards{
@@ -23,13 +23,13 @@
         height: 5px;
         background-color: #fff;
         &.met {
-          background-color: #00CD00;
+          background-color: #66bb6a;
         }
         &.surpassed {
-          background-color: #FFFF32;
+          background-color: #ffee58;
         }
         &.failed {
-          background-color: #FF3232;
+          background-color: #ef5350;
         }
       }
       &-body {
