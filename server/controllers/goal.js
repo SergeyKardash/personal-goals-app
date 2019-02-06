@@ -2,6 +2,7 @@ const Goal = require('../models/goal')
 
 exports.getGoals = (req, res, next) => {
   Goal.find()
+    .select('-__v')
     .then(result => {
       console.log(result);
       res.status(200).json({

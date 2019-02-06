@@ -4,7 +4,6 @@ export class Goal {
   public _id: string;
   public createdAt: Date;
   public updatedAt: Date;
-  public _v: Number;
 
   constructor (title, description) {
     this.title = title;
