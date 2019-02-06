@@ -1,6 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
-import { takeWhile } from "rxjs/operators";
+import { takeWhile, switchMap } from "rxjs/operators";
+import { GoalService } from '../services/goal.service';
+import { Goal } from '../models/goal.model';
 
 @Component({
   selector: 'app-detail-page',
@@ -10,14 +12,19 @@ import { takeWhile } from "rxjs/operators";
 export class DetailPageComponent implements OnInit, OnDestroy {
   alive = true;
   id: number;
+  goal: Goal;
 
-  constructor( private route: ActivatedRoute ) { }
+  constructor( private route: ActivatedRoute, private goalService: GoalService ) { }
 
   ngOnInit() {
     this.route.params.pipe(
-      takeWhile(() => this.alive)
-    ).subscribe((params: Params) => {
-      this.id = params['id'];
+      takeWhile(() => this.alive),
+      switchMap((params: Params) => {
+        this.id = params['id'];
+        return this.goalService.getGoal$(this.id);
+      })
+    ).subscribe((goal: Goal) => {
+      this.goal = goal;
     });
   }
 

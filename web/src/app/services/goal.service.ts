@@ -15,11 +15,21 @@ constructor( private  httpClient: HttpClient) { }
 getGoals$() {
   let goals;
   goals = this.httpClient.get<[Goal]>(`${this.URL}/goals`).pipe(
-    map((values: any) => {
-      return values.goals;
+    map((res: any) => {
+      return res.goals;
     })
   );
   return goals;
+}
+
+getGoal$(id) {
+  let goal;
+  goal = this.httpClient.get<Goal>(`${this.URL}/goal/${id}`).pipe(
+    map((res: any) => {
+      return res.goal;
+    })
+  );
+  return goal;
 }
 
 postGoal(goal: Goal) {
