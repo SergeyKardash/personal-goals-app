@@ -53,3 +53,29 @@ exports.createGoal = (req, res, next) => {
       next(err);
     })
 };
+
+exports.updateGoal = (req, res, next) => {
+  const goalId = req.params.goalId
+  const title = req.body.title;
+  const description = req.body.description;
+  Goal.findById(goalId)
+    .then((goal) => {
+      if (!goal) {
+        const error = new Error ('Could not find post');
+        error.statusCode = 404;
+        throw error;
+      }
+      goal.title = title;
+      goal.description = description;
+      return goal.save();
+    })
+    .then (result => {
+      res.status(200).json({goal: goal});
+    })
+    .catch(err => {
+      if (!err.statusCode) {
+        err.statusCode = 500
+      }
+      next(err);
+    })
+}
