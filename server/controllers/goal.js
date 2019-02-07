@@ -70,7 +70,7 @@ exports.updateGoal = (req, res, next) => {
       return goal.save();
     })
     .then (result => {
-      res.status(200).json({goal: goal});
+      res.status(200).json({goal: result});
     })
     .catch(err => {
       if (!err.statusCode) {

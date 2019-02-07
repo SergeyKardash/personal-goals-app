@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { takeWhile, switchMap } from "rxjs/operators";
 import { GoalService } from '../services/goal.service';
@@ -14,6 +14,9 @@ export class DetailPageComponent implements OnInit, OnDestroy {
   id: number;
   goal: Goal;
   editMode = false;
+
+  @ViewChild('goalTitle') goalTitle: ElementRef;
+  @ViewChild('goalDescription') goalDescription: ElementRef;
 
   constructor( private route: ActivatedRoute, private goalService: GoalService ) { }
 
@@ -35,7 +38,13 @@ export class DetailPageComponent implements OnInit, OnDestroy {
   }
 
   onSave() {
-    this.editMode = false;
+    const title = this.goalTitle.nativeElement.value;
+    const description = this.goalDescription.nativeElement.value;
+    this.goal.title = title;
+    this.goal.description = description;
+    this.goalService.updateGoal(this.goal).then((result) => {
+      this.editMode = false;
+    });
   }
 
   onRemove() {

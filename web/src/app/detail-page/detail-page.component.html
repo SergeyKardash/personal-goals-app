@@ -8,7 +8,7 @@
         <button *ngIf="!editMode" mat-raised-button class="edit-button" (click)="onEditMode()">
           <mat-icon>edit</mat-icon>
         </button>
-        <button *ngIf="editMode" mat-raised-button class="save-button" (click)="onSave()">
+        <button *ngIf="editMode" mat-raised-button class="save-button" (click)="onSave(goal)">
           <mat-icon>save</mat-icon>
         </button>
         <button mat-raised-button class="remove-button" (click)="onRemove()">
@@ -18,11 +18,11 @@
     </div>
     <div *ngIf="!editMode" class="card-title">{{goal?.title}}</div>
     <mat-form-field *ngIf="editMode" class="card-title-input">
-      <input matInput placeholder="Goal" autocomplete="off" [value]="goal?.title">
+      <input matInput placeholder="Goal" autocomplete="off" [value]="goal?.title" #goalTitle>
     </mat-form-field>
     <div *ngIf="!editMode" class="card-description">{{goal?.description}}</div>
     <mat-form-field *ngIf="editMode" class="card-description-input">
-      <textarea matInput matTextareaAutosize placeholder="Goal Description" [value]="goal?.description"></textarea>
+      <textarea matInput matTextareaAutosize placeholder="Goal Description" [value]="goal?.description" #goalDescription></textarea>
     </mat-form-field>
   </div>
 </section>

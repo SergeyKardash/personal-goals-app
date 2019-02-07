@@ -11,7 +11,7 @@ router.get('/goals', goalController.getGoals);
 router.get('/goal/:goalId', goalController.getGoal);
 
 // PUT /goal 
-router.put('/goal/:goalId', goalController.updareGoal);
+router.put('/goal/:goalId', goalController.updateGoal);
 
 // POST /goal
 router.post('/goal', goalController.createGoal);

@@ -36,4 +36,8 @@ postGoal(goal: Goal) {
   return this.httpClient.post(`${this.URL}/goal`, goal).toPromise();
 }
 
+updateGoal(goal: Goal) {
+  return this.httpClient.put(`${this.URL}/goal/${goal._id}`, goal).toPromise();
+}
+
 }
