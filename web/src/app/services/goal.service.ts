@@ -40,4 +40,8 @@ updateGoal(goal: Goal) {
   return this.httpClient.put(`${this.URL}/goal/${goal._id}`, goal).toPromise();
 }
 
+removeGoal(goalId) {
+  return this.httpClient.delete(`${this.URL}/goal/${goalId}`).toPromise();
+}
+
 }

@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { takeWhile, switchMap } from "rxjs/operators";
 import { GoalService } from '../services/goal.service';
 import { Goal } from '../models/goal.model';
@@ -18,7 +18,7 @@ export class DetailPageComponent implements OnInit, OnDestroy {
   @ViewChild('goalTitle') goalTitle: ElementRef;
   @ViewChild('goalDescription') goalDescription: ElementRef;
 
-  constructor( private route: ActivatedRoute, private goalService: GoalService ) { }
+  constructor( private router: Router, private route: ActivatedRoute, private goalService: GoalService ) { }
 
   ngOnInit() {
     this.route.params.pipe(
@@ -29,7 +29,6 @@ export class DetailPageComponent implements OnInit, OnDestroy {
       })
     ).subscribe((goal: Goal) => {
       this.goal = goal;
-      console.log(goal);
     });
   }
 
@@ -42,13 +41,17 @@ export class DetailPageComponent implements OnInit, OnDestroy {
     const description = this.goalDescription.nativeElement.value;
     this.goal.title = title;
     this.goal.description = description;
-    this.goalService.updateGoal(this.goal).then((result) => {
-      this.editMode = false;
-    });
+    this.goalService.updateGoal(this.goal)
+      .then((result) => {
+        this.editMode = false;
+      });
   }
 
   onRemove() {
-    
+    this.goalService.removeGoal(this.goal._id)
+      .then((result) => {
+        this.router.navigate(['']);
+      });
   }
 
   ngOnDestroy() {

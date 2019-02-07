@@ -4,12 +4,16 @@ exports.getGoals = (req, res, next) => {
   Goal.find()
     .select('-__v')
     .then(result => {
-      console.log(result);
       res.status(200).json({
         goals: result
       });
     })
-    .catch(err => console.log(err))
+    .catch(err => {
+      if (!err.statusCode) {
+        err.statusCode = 500
+      }
+      next(err);
+    })
 };
 
 exports.getGoal = (req, res, next) => {
@@ -17,7 +21,7 @@ exports.getGoal = (req, res, next) => {
   Goal.findById(goalId)
     .then((goal) => {
       if (!goal) {
-        const error = new Error ('Could not find post');
+        const error = new Error ('Could not find goal');
         error.statusCode = 404;
         throw error;
       }
@@ -40,9 +44,7 @@ exports.createGoal = (req, res, next) => {
   });
   goal.save()
     .then(result => {
-      console.log(result);
       res.status(201).json({
-        message: 'Goal created successfully!',
         goal: result
       });
     })
@@ -61,7 +63,7 @@ exports.updateGoal = (req, res, next) => {
   Goal.findById(goalId)
     .then((goal) => {
       if (!goal) {
-        const error = new Error ('Could not find post');
+        const error = new Error ('Could not find goal');
         error.statusCode = 404;
         throw error;
       }
@@ -78,4 +80,27 @@ exports.updateGoal = (req, res, next) => {
       }
       next(err);
     })
+}
+
+exports.deleteGoal = (req, res, next) => {
+  const goalId = req.params.goalId;
+  Goal.findById(goalId)
+    .then((goal) => {
+      if (!goal) {
+        const error = new Error ('Could not find goal')
+        error.status = 404;
+        throw error;
+      }
+      return Goal.findByIdAndRemove(goalId)
+    })
+    .then((result) => {
+      res.status(200).json({message: 'Goal deleted', goal: result})
+    })
+    .catch(err => {
+      if (!err.statusCode) {
+        err.statusCode = 500
+      }
+      next(err);
+    })
+
 }
