@@ -13,6 +13,19 @@ const goalSchema = new Schema({
   status: {
     type: String,
     required: false
+  },
+  canComment: {
+    type: [String]
+  },
+  comments: {
+    type: {
+      message: String,
+      date: {
+        type: Date,
+        default: Date.now
+      },
+      user: String
+    }
   }
 }, 
 {timestamps: true});
