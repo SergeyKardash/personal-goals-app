@@ -22,6 +22,12 @@
       }
     }
 
+    .markdown-tooltip {
+      font-size: 0.7em;
+      position: relative;
+      top: -20px;
+    }
+
     .action-buttons {
       display: flex;
       justify-content: center;
@@ -53,6 +59,9 @@
     .card {
       width: unset;
       padding: 30px 15px;
+      .markdown-tooltip {
+        font-size: 0.6em;
+      }
     }
   }
 }
