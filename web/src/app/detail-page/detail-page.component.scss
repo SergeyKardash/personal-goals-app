@@ -9,7 +9,7 @@
 
     &-header {
       width: 100%;
-      height: 15px;
+      height: 8px;
       background-color: #fff;
   
       &.met {
@@ -40,7 +40,7 @@
           margin-right: 15px;
           color: #fff;
 
-          &.edit-button {
+          &.blue-button {
             background-color: #42a5f5;
 
             &:hover {
@@ -48,7 +48,7 @@
             }
           }
 
-          &.save-button {
+          &.green-button {
             background-color: #66bb6a;
 
             &:hover {
@@ -56,7 +56,7 @@
             }
           }
 
-          &.remove-button {
+          &.red-button {
             background-color: #ff5722;
 
             &:hover {
@@ -64,7 +64,7 @@
             }
           }
 
-          &.close-button {
+          &.white-button {
             color: #666;
           }
           &:hover {
@@ -114,6 +114,39 @@
       font-size: 1.2em;
     }
   }
+
+  .toggle-comments {
+    margin: 20px auto;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    justify-content: center;
+    color: #aaa;
+  }
+
+  .comment-card {
+    margin: 20px auto;
+    width: 75%;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+    &-header {
+      padding: 15px 30px;
+      display: flex;
+      border-bottom: 1px solid #999;
+      align-items: center;
+    }
+    &-user {
+      font-weight: 700;
+      font-size: 0.9em;
+    }
+    &-date {
+      margin-left: 30px;
+      font-size: 0.8em;
+      color: #AAA;
+    }
+    &-message {
+      padding: 15px 30px;
+    }
+  }
 }
 
 /deep/.mat-form-field.mat-focused {
@@ -127,7 +160,7 @@
 }
 
 
-@media (max-width: 600px) {
+@media (max-width: 940px) {
   .goal-details {
     padding: 30px 30px;
 
@@ -170,6 +203,10 @@
         font-size: 1em;
         margin-top: 10px;
       }
+    }
+
+    .comment-card {
+      width: unset;
     }
   }
 }

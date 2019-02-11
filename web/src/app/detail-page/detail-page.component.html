@@ -5,16 +5,19 @@
     <div class="card-top-row">
       <div class="card-date">{{goal?.createdAt | date: 'MMM d, y HH:mm'}}</div>
       <div class="action-buttons">
-        <button *ngIf="!editMode" mat-raised-button class="edit-button" (click)="onEditMode()">
+        <button mat-raised-button class="white-button" (click)="inviteUserForFeedback()">
+          <mat-icon>contact_mail</mat-icon>
+        </button>
+        <button *ngIf="!editMode" mat-raised-button class="blue-button" (click)="onEditMode()">
           <mat-icon>edit</mat-icon>
         </button>
-        <button *ngIf="editMode" mat-raised-button class="save-button" (click)="onSave(goal)">
+        <button *ngIf="editMode" mat-raised-button class="green-button" (click)="onSave(goal)">
           <mat-icon>save</mat-icon>
         </button>
-        <button mat-raised-button class="remove-button" (click)="onRemove()">
+        <button mat-raised-button class="red-button" (click)="onRemove()">
           <mat-icon>delete</mat-icon>
         </button>
-        <button mat-raised-button class="close-button" (click)="onClose()">
+        <button mat-raised-button class="white-button" (click)="onClose()">
           <mat-icon>close</mat-icon>
         </button>
       </div>
@@ -38,12 +41,27 @@
 
     <div *ngIf="!editMode && goal" class="card-description">
       <div markdown>
-          {{goal?.description}}
+        {{goal?.description}}
       </div>
     </div>
     <mat-form-field *ngIf="editMode" class="card-description-input">
       <textarea matInput matTextareaAutosize placeholder="Goal Description" [value]="goal?.description"
         #goalDescription></textarea>
     </mat-form-field>
+  </div>
+
+  <div *ngIf="!showComments" class="toggle-comments" (click)="toggleComments()">Show comments<mat-icon>expand_more</mat-icon></div>
+  <div *ngIf="showComments" class="toggle-comments"  (click)="toggleComments()">Hide comments<mat-icon>expand_less</mat-icon></div>
+
+  <div class="comment-card" *ngIf="showComments">
+    <div class="comment-card-header">
+      <div class="comment-card-user">test@test.com</div>
+      <div class="comment-card-date">11.02.2019</div>
+    </div>
+    <div class="comment-card-message">
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti ipsam ad expedita ab nulla iure tempora saepe repellat, sit quis soluta molestiae quos quisquam consequatur excepturi distinctio illo mollitia repudiandae!
+      Distinctio nemo earum enim veritatis corrupti optio incidunt laborum labore, consectetur reprehenderit unde laudantium adipisci dolorem nam amet ab commodi numquam cumque accusamus quasi ipsa illo rerum minus. Dicta, aut!
+      Sapiente quibusdam dolores consectetur cumque doloremque odit nisi, voluptates aliquam accusantium quas eligendi impedit enim! Aspernatur quis in distinctio enim laborum perferendis. Quod dicta repudiandae ipsa a accusantium, quos suscipit?
+    </div>
   </div>
 </section>

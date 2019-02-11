@@ -3,7 +3,8 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { takeWhile, switchMap } from "rxjs/operators";
 import { GoalService } from '../services/goal.service';
 import { Goal } from '../models/goal.model';
-import { MatSelect } from '@angular/material';
+import { MatSelect, MatDialog } from '@angular/material';
+import { InviteUserComponent } from '../dialogs/invite-user/invite-user.component';
 
 @Component({
   selector: 'app-detail-page',
@@ -16,12 +17,13 @@ export class DetailPageComponent implements OnInit, OnDestroy {
   goal: Goal;
   editMode = false;
   statuses = ['Met', 'Surpassed', 'Failed'];
+  showComments = false;
 
   @ViewChild('goalTitle') goalTitle: ElementRef;
   @ViewChild('goalDescription') goalDescription: ElementRef;
   @ViewChild('goalStatus') goalStatus: MatSelect;
 
-  constructor( private router: Router, private route: ActivatedRoute, private goalService: GoalService ) { }
+  constructor( private router: Router, private route: ActivatedRoute, private goalService: GoalService, public dialog: MatDialog ) { }
 
   ngOnInit() {
     this.route.params.pipe(
@@ -52,6 +54,13 @@ export class DetailPageComponent implements OnInit, OnDestroy {
       });
   }
 
+  inviteUserForFeedback() {
+    const dialogRef = this.dialog.open(InviteUserComponent, {
+      width: '500px',
+      data: this.goal
+    });
+  }
+
   onRemove() {
     this.goalService.removeGoal(this.goal._id)
       .then((result) => {
@@ -61,6 +70,10 @@ export class DetailPageComponent implements OnInit, OnDestroy {
 
   onClose() {
     this.router.navigate(['']);
+  }
+
+  toggleComments() {
+    this.showComments = !this.showComments;
   }
 
   ngOnDestroy() {

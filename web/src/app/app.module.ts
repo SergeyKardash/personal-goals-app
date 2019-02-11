@@ -14,8 +14,10 @@ import { MainPageComponent } from './main-page/main-page.component';
 import { DetailPageComponent } from './detail-page/detail-page.component';
 import { HeaderComponent } from './core/header/header.component';
 import { AddGoalPageComponent } from './add-goal-page/add-goal-page.component';
+import { InviteUserComponent } from './dialogs/invite-user/invite-user.component';
 
 import { GoalService } from './services/goal.service';
+
 
 @NgModule({
    declarations: [
@@ -23,7 +25,8 @@ import { GoalService } from './services/goal.service';
       MainPageComponent,
       DetailPageComponent,
       HeaderComponent,
-      AddGoalPageComponent
+      AddGoalPageComponent,
+      InviteUserComponent
    ],
    imports: [
       BrowserModule,
@@ -37,6 +40,7 @@ import { GoalService } from './services/goal.service';
       MarkdownModule.forRoot()
    ],
    providers: [GoalService],
+   entryComponents: [InviteUserComponent],
    bootstrap: [
       AppComponent
    ]
