@@ -44,4 +44,8 @@ removeGoal(goalId) {
   return this.httpClient.delete(`${this.URL}/goal/${goalId}`).toPromise();
 }
 
+sendEmail(data) {
+  return this.httpClient.post(`${this.URL}/sendEmail`, data).toPromise();
+}
+
 }

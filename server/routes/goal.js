@@ -19,4 +19,7 @@ router.post('/goal', goalController.createGoal);
 // DELETE /goal
 router.delete('/goal/:goalId', goalController.deleteGoal);
 
+//POST /sendEmail
+router.post('/sendEmail', goalController.sendEmailForFeedback);
+
 module.exports = router;

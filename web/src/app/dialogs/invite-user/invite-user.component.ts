@@ -46,11 +46,13 @@ export class InviteUserComponent implements OnInit {
         (location.port ? ":" + location.port : "");
       const link = `${hostname}${this.router.url}?email=${email}`;
       if (this.goal.canComment.includes(email)) {
+        this.goalService.sendEmail({email: email, link: link});
         this.dialogRef.close();
         return;
       }
       this.goal.canComment.push(email);
       this.goalService.updateGoal(this.goal).then(() => {
+        this.goalService.sendEmail({email: email, link: link});
         this.dialogRef.close();
       });
     }

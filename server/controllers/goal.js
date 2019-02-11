@@ -1,4 +1,7 @@
-const Goal = require('../models/goal')
+const Goal = require('../models/goal');
+const dotenv = require('dotenv');
+dotenv.config();
+const nodemailer = require("nodemailer");
 
 exports.getGoals = (req, res, next) => {
   Goal.find()
@@ -108,5 +111,31 @@ exports.deleteGoal = (req, res, next) => {
       }
       next(err);
     })
+}
 
+exports.sendEmailForFeedback = (req, res, next) => {
+  const email = req.body.email;
+  const link = req.body.link;
+  const transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      user: process.env.EMAIL,
+      pass: process.env.EMAIL_PASSWORD
+    }
+  });
+
+  const mailOptions = {
+    to: email,
+    subject: "Personal Goal's App",
+    html: `Hello. You have been invited for feedback. Leave feedback for the goal by link: ${link}`
+  }
+
+  transporter.sendMail(mailOptions, (err, info) => {
+    if (err) {
+      next(err);
+    } else {
+      console.log(info);
+      res.status(200).json({msg: 'success'})
+    }
+  });
 }
