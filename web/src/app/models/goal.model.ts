@@ -2,6 +2,8 @@ export class Goal {
   public title: string;
   public description: string;
   public status: string;
+  public canComment: string[];
+  public comments: [];
   public _id: string;
   public createdAt: Date;
   public updatedAt: Date;

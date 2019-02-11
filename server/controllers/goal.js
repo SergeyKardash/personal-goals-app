@@ -63,6 +63,7 @@ exports.updateGoal = (req, res, next) => {
   const title = req.body.title;
   const description = req.body.description;
   const status = req.body.status;
+  const canComment = req.body.canComment;
   Goal.findById(goalId)
     .then((goal) => {
       if (!goal) {
@@ -73,6 +74,7 @@ exports.updateGoal = (req, res, next) => {
       goal.title = title;
       goal.description = description;
       goal.status = status;
+      goal.canComment = canComment;
       return goal.save();
     })
     .then (result => {

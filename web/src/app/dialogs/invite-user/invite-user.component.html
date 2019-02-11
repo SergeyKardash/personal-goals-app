@@ -14,5 +14,5 @@
 </mat-dialog-content>
 <mat-dialog-actions>
   <button mat-raised-button mat-dialog-close>Cancel</button>
-  <button mat-raised-button class="blue-button" (click)="onInvite()">Invite</button>
+  <button mat-raised-button class="blue-button" (click)="onInvite()" [disabled]="!userEmail.valid">Invite</button>
 </mat-dialog-actions>
