@@ -38,9 +38,11 @@ exports.getGoal = (req, res, next) => {
 exports.createGoal = (req, res, next) => {
   const title = req.body.title;
   const description = req.body.description;
+  const status = req.body.status;
   const goal = new Goal({
     title: title, 
-    description: description
+    description: description,
+    status: status
   });
   goal.save()
     .then(result => {
@@ -60,6 +62,7 @@ exports.updateGoal = (req, res, next) => {
   const goalId = req.params.goalId
   const title = req.body.title;
   const description = req.body.description;
+  const status = req.body.status;
   Goal.findById(goalId)
     .then((goal) => {
       if (!goal) {
@@ -69,6 +72,7 @@ exports.updateGoal = (req, res, next) => {
       }
       goal.title = title;
       goal.description = description;
+      goal.status = status;
       return goal.save();
     })
     .then (result => {

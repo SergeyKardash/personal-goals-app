@@ -10,6 +10,10 @@ const goalSchema = new Schema({
     type: String,
     required: false
   },
+  status: {
+    type: String,
+    required: false
+  }
 }, 
 {timestamps: true});
 
