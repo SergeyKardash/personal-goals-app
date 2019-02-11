@@ -1,7 +1,7 @@
 <app-header></app-header>
 <section class="goal-details">
   <div class="card">
-    <div class="card-header"></div>
+    <div class="card-header" [ngClass]="{'met': goal?.status === 'Met', 'surpassed': goal?.status === 'Surpassed', 'failed': goal?.status === 'Failed'}"></div>
     <div class="card-top-row">
       <div class="card-date">{{goal?.createdAt | date: 'MMM d, y HH:mm'}}</div>
       <div class="action-buttons">
@@ -14,15 +14,32 @@
         <button mat-raised-button class="remove-button" (click)="onRemove()">
           <mat-icon>delete</mat-icon>
         </button>
+        <button mat-raised-button class="close-button" (click)="onClose()">
+          <mat-icon>close</mat-icon>
+        </button>
       </div>
     </div>
-    <div *ngIf="!editMode" class="card-title">{{goal?.title}}</div>
-    <mat-form-field *ngIf="editMode" class="card-title-input">
-      <input matInput placeholder="Goal" autocomplete="off" [value]="goal?.title" #goalTitle>
-    </mat-form-field>
+
+    <div class="card-title-row">
+      <div *ngIf="!editMode" class="card-title">{{goal?.title}}</div>
+      <mat-form-field *ngIf="editMode" class="card-title-input">
+        <input matInput placeholder="Goal" autocomplete="off" [value]="goal?.title" #goalTitle>
+      </mat-form-field>
+
+      <div *ngIf="!editMode" class="card-status" [ngClass]="{'met': goal?.status === 'Met', 'surpassed': goal?.status === 'Surpassed', 'failed': goal?.status === 'Failed'}">
+        {{goal?.status}}
+      </div>
+      <mat-form-field *ngIf="editMode">
+        <mat-select placeholder="Status" [value]="goal?.status" #goalStatus>
+          <mat-option *ngFor="let status of statuses" [value]="status">{{status}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
     <div *ngIf="!editMode" class="card-description">{{goal?.description}}</div>
     <mat-form-field *ngIf="editMode" class="card-description-input">
-      <textarea matInput matTextareaAutosize placeholder="Goal Description" [value]="goal?.description" #goalDescription></textarea>
+      <textarea matInput matTextareaAutosize placeholder="Goal Description" [value]="goal?.description"
+        #goalDescription></textarea>
     </mat-form-field>
   </div>
 </section>

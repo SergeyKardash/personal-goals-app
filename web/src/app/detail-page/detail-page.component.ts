@@ -3,6 +3,7 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { takeWhile, switchMap } from "rxjs/operators";
 import { GoalService } from '../services/goal.service';
 import { Goal } from '../models/goal.model';
+import { MatSelect } from '@angular/material';
 
 @Component({
   selector: 'app-detail-page',
@@ -14,9 +15,11 @@ export class DetailPageComponent implements OnInit, OnDestroy {
   id: number;
   goal: Goal;
   editMode = false;
+  statuses = ['Met', 'Surpassed', 'Failed'];
 
   @ViewChild('goalTitle') goalTitle: ElementRef;
   @ViewChild('goalDescription') goalDescription: ElementRef;
+  @ViewChild('goalStatus') goalStatus: MatSelect;
 
   constructor( private router: Router, private route: ActivatedRoute, private goalService: GoalService ) { }
 
@@ -39,8 +42,10 @@ export class DetailPageComponent implements OnInit, OnDestroy {
   onSave() {
     const title = this.goalTitle.nativeElement.value;
     const description = this.goalDescription.nativeElement.value;
+    const status = this.goalStatus.value;
     this.goal.title = title;
     this.goal.description = description;
+    this.goal.status = status;
     this.goalService.updateGoal(this.goal)
       .then((result) => {
         this.editMode = false;
@@ -52,6 +57,10 @@ export class DetailPageComponent implements OnInit, OnDestroy {
       .then((result) => {
         this.router.navigate(['']);
       });
+  }
+
+  onClose() {
+    this.router.navigate(['']);
   }
 
   ngOnDestroy() {
