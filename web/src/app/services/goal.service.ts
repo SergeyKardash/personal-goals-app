@@ -44,6 +44,10 @@ removeGoal(goalId) {
   return this.httpClient.delete(`${this.URL}/goal/${goalId}`).toPromise();
 }
 
+addComment(goalId, comment) {
+  return this.httpClient.post(`${this.URL}/goal/addComment/${goalId}`, comment).toPromise();
+}
+
 sendEmail(data) {
   return this.httpClient.post(`${this.URL}/sendEmail`, data).toPromise();
 }

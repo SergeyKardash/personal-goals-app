@@ -21,6 +21,7 @@ export class DetailPageComponent implements OnInit, OnDestroy {
   alive = true;
   id: number;
   goal: Goal;
+  comments = [];
   editMode = false;
   statuses = ["Met", "Surpassed", "Failed"];
   showComments = false;
@@ -50,6 +51,7 @@ export class DetailPageComponent implements OnInit, OnDestroy {
         }),
         switchMap((goal: Goal) => {
           this.goal = goal;
+          this.comments = goal.comments.reverse();
           return this.route.queryParams;
         })
       )
@@ -105,6 +107,20 @@ export class DetailPageComponent implements OnInit, OnDestroy {
 
   toggleComments() {
     this.showComments = !this.showComments;
+  }
+
+  addComment() {
+    const comment = {
+      message: this.commentMessage.nativeElement.value,
+      userEmail: this.feedbackUserEmail
+    };
+    this.goalService.addComment(this.goal._id, comment)
+    .then((result: any) => {
+      this.goal = result.goal;
+      this.comments = this.goal.comments.reverse();
+      this.showComments = true;
+      this.commentMessage.nativeElement.value = '';
+    });
   }
 
   ngOnDestroy() {
