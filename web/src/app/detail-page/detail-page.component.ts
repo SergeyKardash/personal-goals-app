@@ -1,40 +1,73 @@
-import { Component, OnInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
-import { ActivatedRoute, Params, Router } from '@angular/router';
+import {
+  Component,
+  OnInit,
+  OnDestroy,
+  ViewChild,
+  ElementRef
+} from "@angular/core";
+import { ActivatedRoute, Params, Router } from "@angular/router";
 import { takeWhile, switchMap } from "rxjs/operators";
-import { GoalService } from '../services/goal.service';
-import { Goal } from '../models/goal.model';
-import { MatSelect, MatDialog } from '@angular/material';
-import { InviteUserComponent } from '../dialogs/invite-user/invite-user.component';
+import { GoalService } from "../services/goal.service";
+import { Goal } from "../models/goal.model";
+import { MatSelect, MatDialog } from "@angular/material";
+import { InviteUserComponent } from "../dialogs/invite-user/invite-user.component";
 
 @Component({
-  selector: 'app-detail-page',
-  templateUrl: './detail-page.component.html',
-  styleUrls: ['./detail-page.component.scss']
+  selector: "app-detail-page",
+  templateUrl: "./detail-page.component.html",
+  styleUrls: ["./detail-page.component.scss"]
 })
 export class DetailPageComponent implements OnInit, OnDestroy {
   alive = true;
   id: number;
   goal: Goal;
   editMode = false;
-  statuses = ['Met', 'Surpassed', 'Failed'];
+  statuses = ["Met", "Surpassed", "Failed"];
   showComments = false;
+  feedbackUserEmail: string;
+  showCreateComment = false;
+  now = Date.now();
 
-  @ViewChild('goalTitle') goalTitle: ElementRef;
-  @ViewChild('goalDescription') goalDescription: ElementRef;
-  @ViewChild('goalStatus') goalStatus: MatSelect;
+  @ViewChild("goalTitle") goalTitle: ElementRef;
+  @ViewChild("goalDescription") goalDescription: ElementRef;
+  @ViewChild("goalStatus") goalStatus: MatSelect;
+  @ViewChild("commentMessage") commentMessage: ElementRef;
 
-  constructor( private router: Router, private route: ActivatedRoute, private goalService: GoalService, public dialog: MatDialog ) { }
+  constructor(
+    private router: Router,
+    private route: ActivatedRoute,
+    private goalService: GoalService,
+    public dialog: MatDialog
+  ) {}
 
   ngOnInit() {
-    this.route.params.pipe(
-      takeWhile(() => this.alive),
-      switchMap((params: Params) => {
-        this.id = params['id'];
-        return this.goalService.getGoal$(this.id);
-      })
-    ).subscribe((goal: Goal) => {
-      this.goal = goal;
-    });
+    this.route.params
+      .pipe(
+        takeWhile(() => this.alive),
+        switchMap((params: Params) => {
+          this.id = params["id"];
+          return this.goalService.getGoal$(this.id);
+        }),
+        switchMap((goal: Goal) => {
+          this.goal = goal;
+          return this.route.queryParams;
+        })
+      )
+      .subscribe((params: Params) => {
+        this.feedbackUserEmail = params["email"];
+        const canComment = this.goal.canComment.includes(
+          this.feedbackUserEmail
+        );
+        if (canComment) {
+          this.showCreateComment = true;
+          const checkCommentMessage = setInterval(() => {
+            if (this.commentMessage) {
+              this.commentMessage.nativeElement.focus();
+              clearInterval(checkCommentMessage);
+            }
+          }, 100);
+        }
+      });
   }
 
   onEditMode() {
@@ -48,28 +81,26 @@ export class DetailPageComponent implements OnInit, OnDestroy {
     this.goal.title = title;
     this.goal.description = description;
     this.goal.status = status;
-    this.goalService.updateGoal(this.goal)
-      .then((result) => {
-        this.editMode = false;
-      });
+    this.goalService.updateGoal(this.goal).then(result => {
+      this.editMode = false;
+    });
   }
 
   inviteUserForFeedback() {
     const dialogRef = this.dialog.open(InviteUserComponent, {
-      width: '500px',
+      width: "500px",
       data: this.goal
     });
   }
 
   onRemove() {
-    this.goalService.removeGoal(this.goal._id)
-      .then((result) => {
-        this.router.navigate(['']);
-      });
+    this.goalService.removeGoal(this.goal._id).then(result => {
+      this.router.navigate([""]);
+    });
   }
 
   onClose() {
-    this.router.navigate(['']);
+    this.router.navigate([""]);
   }
 
   toggleComments() {
@@ -79,5 +110,4 @@ export class DetailPageComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.alive = false;
   }
-
 }

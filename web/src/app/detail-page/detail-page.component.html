@@ -5,19 +5,19 @@
     <div class="card-top-row">
       <div class="card-date">{{goal?.createdAt | date: 'MMM d, y HH:mm'}}</div>
       <div class="action-buttons">
-        <button mat-raised-button class="white-button" (click)="inviteUserForFeedback()">
+        <button mat-raised-button class="white-button mail" (click)="inviteUserForFeedback()">
           <mat-icon>contact_mail</mat-icon>
         </button>
-        <button *ngIf="!editMode" mat-raised-button class="blue-button" (click)="onEditMode()">
+        <button *ngIf="!editMode" mat-raised-button class="blue-button edit" (click)="onEditMode()">
           <mat-icon>edit</mat-icon>
         </button>
-        <button *ngIf="editMode" mat-raised-button class="green-button" (click)="onSave(goal)">
+        <button *ngIf="editMode" mat-raised-button class="green-button save" (click)="onSave(goal)">
           <mat-icon>save</mat-icon>
         </button>
-        <button mat-raised-button class="red-button" (click)="onRemove()">
+        <button mat-raised-button class="red-button delete" (click)="onRemove()">
           <mat-icon>delete</mat-icon>
         </button>
-        <button mat-raised-button class="white-button" (click)="onClose()">
+        <button mat-raised-button class="white-button close" (click)="onClose()">
           <mat-icon>close</mat-icon>
         </button>
       </div>
@@ -49,6 +49,24 @@
         #goalDescription></textarea>
     </mat-form-field>
   </div>
+
+  <div class="comment-card" *ngIf="showCreateComment">
+    <div class="comment-card-header no-border">
+      <div class="comment-card-user">{{feedbackUserEmail}}</div>
+      <div class="comment-card-date">{{ now | date : 'M.d.yyyy HH:mm'}}</div>
+    </div>
+    <div>
+      <mat-form-field class="card-description-input">
+        <textarea matInput matTextareaAutosize placeholder="Comment" #commentMessage></textarea>
+      </mat-form-field>
+    </div>
+    <div class="action-buttons">
+      <button mat-raised-button class="blue-button">
+        Add Comment
+      </button>
+    </div>
+  </div>
+
 
   <div *ngIf="!showComments" class="toggle-comments" (click)="toggleComments()">Show comments<mat-icon>expand_more</mat-icon></div>
   <div *ngIf="showComments" class="toggle-comments"  (click)="toggleComments()">Hide comments<mat-icon>expand_less</mat-icon></div>
