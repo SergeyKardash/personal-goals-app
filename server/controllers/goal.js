@@ -1,4 +1,5 @@
 const Goal = require('../models/goal');
+const Comment = require('../models/comment');
 const dotenv = require('dotenv');
 dotenv.config();
 const nodemailer = require("nodemailer");
@@ -104,6 +105,34 @@ exports.deleteGoal = (req, res, next) => {
     })
     .then((result) => {
       res.status(200).json({message: 'Goal deleted', goal: result})
+    })
+    .catch(err => {
+      if (!err.statusCode) {
+        err.statusCode = 500
+      }
+      next(err);
+    })
+}
+
+exports.addComment = (req, res, next) => {
+  const goalId = req.params.goalId
+  const message = req.body.message;
+  const userEmail = req.body.userEmail;
+  Goal.findById(goalId)
+    .then((goal) => {
+      if (!goal) {
+        const error = new Error ('Could not find goal')
+        error.status = 404;
+        throw error;
+      }
+      goal.comments.push(new Comment({
+        message: message,
+        userEmail: userEmail
+      }))
+      return goal.save()
+    })
+    .then((result) => {
+      res.status(200).json({goal: result});
     })
     .catch(err => {
       if (!err.statusCode) {

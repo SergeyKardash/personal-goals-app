@@ -1,5 +1,9 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const Comment = require('../models/comment');
+
+var commentSchema = Comment.schema
+
 
 const goalSchema = new Schema({
   title: {
@@ -17,17 +21,9 @@ const goalSchema = new Schema({
   canComment: {
     type: [String]
   },
-  comments: {
-    type: {
-      message: String,
-      date: {
-        type: Date,
-        default: Date.now
-      },
-      user: String
-    }
-  }
-}, 
-{timestamps: true});
+  comments: [commentSchema]
+}, {
+  timestamps: true
+});
 
 module.exports = mongoose.model('Goal', goalSchema);
