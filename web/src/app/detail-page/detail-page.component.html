@@ -5,19 +5,19 @@
     <div class="card-top-row">
       <div class="card-date">{{goal?.createdAt | date: 'MMM d, y HH:mm'}}</div>
       <div class="action-buttons">
-        <button mat-raised-button class="white-button mail" (click)="inviteUserForFeedback()">
+        <button mat-raised-button title="Send invite for feedback"  class="white-button mail" (click)="inviteUserForFeedback()">
           <mat-icon>contact_mail</mat-icon>
         </button>
-        <button *ngIf="!editMode" mat-raised-button class="blue-button edit" (click)="onEditMode()">
+        <button *ngIf="!editMode" mat-raised-button title="Edit Goal" class="blue-button edit" (click)="onEditMode()">
           <mat-icon>edit</mat-icon>
         </button>
-        <button *ngIf="editMode" mat-raised-button class="green-button save" (click)="onSave(goal)">
+        <button *ngIf="editMode" mat-raised-button title="Save Goal" class="green-button save" (click)="onSave(goal)">
           <mat-icon>save</mat-icon>
         </button>
-        <button mat-raised-button class="red-button delete" (click)="onRemove()">
+        <button mat-raised-button title="Remove Goal" class="red-button delete" (click)="onRemove()">
           <mat-icon>delete</mat-icon>
         </button>
-        <button mat-raised-button class="white-button close" (click)="onClose()">
+        <button mat-raised-button title="Close" class="white-button close" (click)="onClose()">
           <mat-icon>close</mat-icon>
         </button>
       </div>
@@ -68,7 +68,7 @@
   </div>
 
 
-  <div *ngIf="!showComments && comments.length" class="toggle-comments" (click)="toggleComments()">Show comments<mat-icon>expand_more</mat-icon>
+  <div *ngIf="!showComments && comments.length" class="toggle-comments" (click)="toggleComments()">Show comments ({{comments.length}})<mat-icon>expand_more</mat-icon>
   </div>
   <div *ngIf="showComments && comments.length" class="toggle-comments" (click)="toggleComments()">Hide comments<mat-icon>expand_less</mat-icon>
   </div>
@@ -77,7 +77,7 @@
     <div class="comment-card" *ngFor="let comment of goal.comments">
       <div class="comment-card-header">
         <div class="comment-card-user">{{comment.userEmail}}</div>
-        <div class="comment-card-date">{{comment.date | date : 'M.d.yyyy HH:mm'}}</div>
+        <div class="comment-card-date">{{comment.updatedAt | date : 'M.d.yyyy HH:mm'}}</div>
       </div>
       <div class="comment-card-message">
         {{comment.message}}
