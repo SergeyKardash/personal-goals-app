@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 
 const goalRoutes = require('./routes/goal');
+const commentRoutes = require('./routes/comment');
 
 const mongoose = require('mongoose')
 
@@ -17,6 +18,7 @@ app.use((req, res, next) => {
 });
 
 app.use(goalRoutes);
+app.use(commentRoutes);
 
 mongoose.connect('mongodb://localhost:27017/personalGoals', { useNewUrlParser: true }).then(result => {
   app.listen(8080);

@@ -11,6 +11,7 @@ import { GoalService } from "../services/goal.service";
 import { Goal } from "../models/goal.model";
 import { MatSelect, MatDialog } from "@angular/material";
 import { InviteUserComponent } from "../dialogs/invite-user/invite-user.component";
+import { CommentService } from "../services/comment.service";
 
 @Component({
   selector: "app-detail-page",
@@ -38,6 +39,7 @@ export class DetailPageComponent implements OnInit, OnDestroy {
     private router: Router,
     private route: ActivatedRoute,
     private goalService: GoalService,
+    private commentService: CommentService,
     public dialog: MatDialog
   ) {}
 
@@ -128,11 +130,20 @@ export class DetailPageComponent implements OnInit, OnDestroy {
   }
 
   onSaveComment(comment) {
-    comment.editMode = false;
+    const textArea = document.getElementById(`${comment._id}`) as HTMLTextAreaElement;
+    const message = textArea.value;
+    this.commentService.updateComment(comment._id, this.goal._id, message).then((result: any) => {
+      this.goal = result.goal;
+      this.comments = this.goal.comments.reverse();
+      comment.editMode = false;
+    });
   }
 
-  onRemoveComment () {
-
+  onRemoveComment (comment) {
+    this.commentService.removeComment(comment._id, this.goal._id).then((result: any) => {
+      this.goal = result.goal;
+      this.comments = this.goal.comments.reverse();
+    });
   }
 
   ngOnDestroy() {

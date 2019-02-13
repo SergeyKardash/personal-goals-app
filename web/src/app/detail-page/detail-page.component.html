@@ -88,7 +88,7 @@
           <button *ngIf="comment.editMode"  mat-raised-button title="Save Comment" class="green-button save" (click)="onSaveComment(comment)">
               <mat-icon>save</mat-icon>
             </button>
-          <button mat-raised-button title="Remove Comment" class="red-button delete" (click)="onRemoveComment()">
+          <button mat-raised-button title="Remove Comment" class="red-button delete" (click)="onRemoveComment(comment)">
             <mat-icon>delete</mat-icon>
           </button>
         </div>
@@ -97,7 +97,7 @@
         {{comment.message}}
       </div>
       <mat-form-field *ngIf="comment.editMode" class="comment-card-message">
-          <textarea matInput matTextareaAutosize [value]="comment.message"></textarea>
+          <textarea matInput matTextareaAutosize [value]="comment.message" [id]="comment._id"></textarea>
         </mat-form-field>
     </div>
   </div>

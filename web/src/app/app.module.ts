@@ -17,6 +17,7 @@ import { AddGoalPageComponent } from './add-goal-page/add-goal-page.component';
 import { InviteUserComponent } from './dialogs/invite-user/invite-user.component';
 
 import { GoalService } from './services/goal.service';
+import { CommentService } from './services/comment.service';
 
 
 @NgModule({
@@ -39,7 +40,7 @@ import { GoalService } from './services/goal.service';
       HttpClientModule,
       MarkdownModule.forRoot()
    ],
-   providers: [GoalService],
+   providers: [GoalService, CommentService],
    entryComponents: [InviteUserComponent],
    bootstrap: [
       AppComponent
