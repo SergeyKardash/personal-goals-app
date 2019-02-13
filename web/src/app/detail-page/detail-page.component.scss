@@ -132,10 +132,56 @@
       padding: 15px 30px;
       display: flex;
       border-bottom: 1px solid #999;
-      align-items: center;
+      justify-content: space-between;
       &.no-border {
         border-bottom: none;
         padding: 15px 30px 0 30px;
+      }
+      &-left {
+        display: flex;
+        align-items: center;
+      }
+      &-right {
+        display: flex;
+        button {
+          color: #fff;
+          &.blue-button {
+            background-color: #42a5f5;
+            &:hover {
+              background-color: #2196f3;
+            }
+          }
+          &.green-button {
+            background-color: #66bb6a;
+            &:hover {
+              background-color: #4caf50;
+            }
+          }
+          &.red-button {
+            background-color: #ff5722;
+            &:hover {
+              background-color: #f44336;
+            }
+          }
+          &.mat-raised-button {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            line-height: unset;
+            padding: 5px;
+            min-width: 15px;
+          }
+          .material-icons {
+            font-size: 15px;
+          }
+          .mat-icon {
+            height: unset;
+            width: unset;
+          }
+          &:first-child {
+            margin-right: 5px;
+          }
+        }
       }
     }
     &-user {
@@ -149,6 +195,7 @@
     }
     &-message {
       padding: 15px 30px;
+      width: 75%;
     }
     .action-buttons {
       padding: 0 30px 15px;
@@ -240,7 +287,7 @@
   }
 }
 
-@media (max-width: 420px) { 
+@media (max-width: 480px) { 
 .goal-details {
   .card { 
     &-top-row {
@@ -273,12 +320,20 @@
 
   .comment-card {
     &-header {
+      padding: 15px;
       display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
+      justify-content: space-between;
+      &-left {
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+      &-right {
+        margin: 0 10px;
+        align-items: center;
+      }
     }
     &-date {
-      margin: 5px 0;
+      margin: 5px;
     }
   }
 }

@@ -105,11 +105,11 @@ export class DetailPageComponent implements OnInit, OnDestroy {
     this.router.navigate([""]);
   }
 
-  toggleComments() {
+  onToggleComments() {
     this.showComments = !this.showComments;
   }
 
-  addComment() {
+  onAddComment() {
     const comment = {
       message: this.commentMessage.nativeElement.value,
       userEmail: this.feedbackUserEmail
@@ -121,6 +121,18 @@ export class DetailPageComponent implements OnInit, OnDestroy {
       this.showComments = true;
       this.commentMessage.nativeElement.value = '';
     });
+  }
+
+  onEditComment(comment) {
+    comment.editMode = true;
+  }
+
+  onSaveComment(comment) {
+    comment.editMode = false;
+  }
+
+  onRemoveComment () {
+
   }
 
   ngOnDestroy() {
