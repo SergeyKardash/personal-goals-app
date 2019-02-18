@@ -18,6 +18,9 @@ import { InviteUserComponent } from './dialogs/invite-user/invite-user.component
 
 import { GoalService } from './services/goal.service';
 import { CommentService } from './services/comment.service';
+import { AuthService } from './services/auth.service';
+import { CallbackComponent } from './shared/callback/callback.component';
+import { AuthComponent } from './shared/auth/auth.component';
 
 
 @NgModule({
@@ -27,7 +30,9 @@ import { CommentService } from './services/comment.service';
       DetailPageComponent,
       HeaderComponent,
       AddGoalPageComponent,
-      InviteUserComponent
+      InviteUserComponent,
+      CallbackComponent,
+      AuthComponent
    ],
    imports: [
       BrowserModule,
@@ -40,7 +45,7 @@ import { CommentService } from './services/comment.service';
       HttpClientModule,
       MarkdownModule.forRoot()
    ],
-   providers: [GoalService, CommentService],
+   providers: [GoalService, CommentService, AuthService],
    entryComponents: [InviteUserComponent],
    bootstrap: [
       AppComponent
