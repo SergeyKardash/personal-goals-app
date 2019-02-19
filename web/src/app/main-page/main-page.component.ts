@@ -27,6 +27,6 @@ export class MainPageComponent implements OnInit {
   }
 
   navigateOnGoalDetails(id) {
-    this.router.navigate(["goal", id], { relativeTo: this.route });
+    this.router.navigate(["goal", id]);
   }
 }

@@ -99,12 +99,12 @@ export class DetailPageComponent implements OnInit, OnDestroy {
 
   onRemove() {
     this.goalService.removeGoal(this.goal._id).then(result => {
-      this.router.navigate([""]);
+      this.router.navigate(["goals"]);
     });
   }
 
   onClose() {
-    this.router.navigate([""]);
+    this.router.navigate(["goals"]);
   }
 
   onToggleComments() {

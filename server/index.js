@@ -1,6 +1,10 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 
+const Auth0Strategy = require('passport-auth0');
+const passport = require('passport');
+
+const authRoutes = require('./routes/auth');
 const goalRoutes = require('./routes/goal');
 const commentRoutes = require('./routes/comment');
 
@@ -17,6 +21,24 @@ app.use((req, res, next) => {
   next();
 });
 
+var strategy = new Auth0Strategy({
+  domain:       'personalgoalapp.eu.auth0.com',
+  clientID:     'UPkLzNww2Fpl7ShTT6AlxXDB3kv7EI5u',
+  clientSecret: 'L0c3yurmOzRvb4aq3eUNq3AVyeEOdqJ2ZetF7t9xE_pfVequ4-cE8CpqFOEQLIun',
+  callbackURL:  '/callback'
+ },
+ function(accessToken, refreshToken, extraParams, profile, done) {
+   // accessToken is the token to call Auth0 API (not needed in the most cases)
+   // extraParams.id_token has the JSON Web Token
+   // profile has all the information from the user
+   return done(null, profile);
+ }
+);
+
+passport.use(strategy);
+
+
+app.use(authRoutes)
 app.use(goalRoutes);
 app.use(commentRoutes);
 
