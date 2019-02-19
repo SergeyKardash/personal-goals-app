@@ -21,6 +21,7 @@ import { CommentService } from './services/comment.service';
 import { AuthService } from './services/auth.service';
 import { CallbackComponent } from './shared/callback/callback.component';
 import { AuthComponent } from './shared/auth/auth.component';
+import { AuthGuard } from './shared/auth/auth.guard';
 
 
 @NgModule({
@@ -45,7 +46,7 @@ import { AuthComponent } from './shared/auth/auth.component';
       HttpClientModule,
       MarkdownModule.forRoot()
    ],
-   providers: [GoalService, CommentService, AuthService],
+   providers: [GoalService, CommentService, AuthService, AuthGuard],
    entryComponents: [InviteUserComponent],
    bootstrap: [
       AppComponent

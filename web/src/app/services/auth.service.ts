@@ -2,6 +2,7 @@ import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
 import * as auth0 from "auth0-js";
 import { environment } from './../../environments/environment';
+import { BehaviorSubject } from "rxjs";
 
 (window as any).global = window;
 
@@ -10,7 +11,7 @@ import { environment } from './../../environments/environment';
 })
 export class AuthService {
   expiresAt: number;
-  userProfile: any;
+  userProfile$ = new BehaviorSubject<any>(null);
   accessToken: string;
   authenticated: boolean;
 
@@ -40,7 +41,6 @@ export class AuthService {
       } else if (err) {
         console.error(`Error: ${err.error}`);
       }
-      this.router.navigate(['goals']);
     });
   }
 
@@ -57,15 +57,17 @@ export class AuthService {
     this.auth0.client.userInfo(authResult.accessToken, (err, profile) => {
       if (profile) {
         this._setSession(authResult, profile);
+        this.router.navigate(['goals']);
       }
     });
   }
+
 
   private _setSession(authResult, profile) {
     // Save authentication data and update login status subject
     this.expiresAt = authResult.expiresIn * 1000 + Date.now();
     this.accessToken = authResult.accessToken;
-    this.userProfile = profile;
+    this.userProfile$.next(profile);
     this.authenticated = true;
   }
 
