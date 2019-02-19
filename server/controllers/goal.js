@@ -4,6 +4,7 @@ const dotenv = require('dotenv');
 dotenv.config();
 const nodemailer = require("nodemailer");
 
+
 exports.getGoals = (req, res, next) => {
   Goal.find()
     .select('-__v')
