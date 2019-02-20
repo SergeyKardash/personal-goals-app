@@ -12,6 +12,8 @@
     grid-auto-rows: auto;
     grid-gap: 2rem;
     .card {
+      border-top-left-radius: 5px;
+      border-top-right-radius: 5px;
       position: relative;
       display: flex;
       flex-direction: column;
@@ -25,6 +27,8 @@
         transform: scale(1.05);
       }
       &-header {
+        border-top-left-radius: 5px;
+        border-top-right-radius: 5px;
         height: 5px;
         background-color: #fff;
         &.met {

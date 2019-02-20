@@ -65,6 +65,6 @@ export class AddGoalPageComponent implements OnInit {
   }
 
   onCancel() {
-    this.router.navigate([""]);
+    this.router.navigate(["/goals"]);
   }
 }

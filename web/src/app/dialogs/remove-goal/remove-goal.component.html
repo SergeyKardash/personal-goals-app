@@ -1,9 +1,9 @@
 <div mat-dialog-content style="font-size: 0.9rem; font-weight: 600; text-align: center">Are you sure you want to remove goal: <span style="white-space: nowrap">"{{goal.title}}"?</span></div>
 <div mat-dialog-actions style="display: flex; justify-content: center">
-  <button mat-button class="red-button delete" (click)="onRemove()">
+  <button mat-raised-button class="red-button delete" (click)="onRemove()">
     Remove <mat-icon>delete</mat-icon>
   </button>
-  <button mat-button class="white-button close" (click)="onCancel()">
+  <button mat-raised-button class="white-button close" (click)="onCancel()">
     Cancel <mat-icon>close</mat-icon>
   </button>
 </div>
