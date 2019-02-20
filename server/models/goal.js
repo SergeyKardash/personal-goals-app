@@ -21,6 +21,10 @@ const goalSchema = new Schema({
   canComment: {
     type: [String]
   },
+  creator: {
+    type: Schema.Types.ObjectId,
+    ref: 'User'
+  },
   comments: [commentSchema]
 }, {
   timestamps: true

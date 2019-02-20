@@ -5,16 +5,16 @@
     <div class="card-top-row">
       <div class="card-date">{{goal?.createdAt | date: 'MMM d, y HH:mm'}}</div>
       <div class="action-buttons">
-        <button mat-raised-button title="Send invite for feedback" class="white-button mail" (click)="inviteUserForFeedback()">
+        <button *ngIf="isCreator"  mat-raised-button title="Send invite for feedback" class="white-button mail" (click)="inviteUserForFeedback()">
           <mat-icon>contact_mail</mat-icon>
         </button>
-        <button *ngIf="!editMode" mat-raised-button title="Edit Goal" class="blue-button edit" (click)="onEditMode()">
+        <button *ngIf="!editMode && isCreator" mat-raised-button title="Edit Goal" class="blue-button edit" (click)="onEditMode()">
           <mat-icon>edit</mat-icon>
         </button>
-        <button *ngIf="editMode" mat-raised-button title="Save Goal" class="green-button save" (click)="onSave(goal)">
+        <button *ngIf="editMode && isCreator" mat-raised-button title="Save Goal" class="green-button save" (click)="onSave(goal)">
           <mat-icon>save</mat-icon>
         </button>
-        <button mat-raised-button title="Remove Goal" class="red-button delete" (click)="onRemove()">
+        <button *ngIf="isCreator"  mat-raised-button title="Remove Goal" class="red-button delete" (click)="onRemove()">
           <mat-icon>delete</mat-icon>
         </button>
         <button mat-raised-button title="Close" class="white-button close" (click)="onClose()">

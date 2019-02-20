@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { Goal } from '../models/goal.model';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -10,11 +11,13 @@ export class GoalService {
 
   URL = 'http://localhost:8080';
 
-constructor( private  httpClient: HttpClient) { }
+constructor( private  httpClient: HttpClient, private authService: AuthService) { }
 
 getGoals$() {
   let goals;
-  goals = this.httpClient.get<[Goal]>(`${this.URL}/goals`).pipe(
+  goals = this.httpClient.get<[Goal]>(`${this.URL}/goals`, {
+    headers: new HttpHeaders().set('Authorization', `Bearer ${this.authService.accessToken}`)
+  }).pipe(
     map((res: any) => {
       return res.goals;
     })

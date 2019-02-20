@@ -4,6 +4,7 @@ export class Goal {
   public status: string;
   public canComment: string[];
   public comments: [];
+  public creator: string;
   public _id: string;
   public createdAt: Date;
   public updatedAt: Date;

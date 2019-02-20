@@ -7,6 +7,7 @@ dotenv.config();
 const Auth0Strategy = require('passport-auth0');
 const passport = require('passport');
 
+const userRoutes = require('./routes/user');
 const goalRoutes = require('./routes/goal');
 const commentRoutes = require('./routes/comment');
 
@@ -41,8 +42,10 @@ var strategy = new Auth0Strategy({
 passport.use(strategy);
 
 
+app.use(userRoutes);
 app.use(goalRoutes);
 app.use(commentRoutes);
+
 
 mongoose.connect('mongodb://localhost:27017/personalGoals', { useNewUrlParser: true }).then(result => {
   app.listen(8080);

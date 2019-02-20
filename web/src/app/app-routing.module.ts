@@ -12,7 +12,7 @@ const routes: Routes = [
   {path: '', component: AuthComponent, pathMatch: 'full'},
   {path: 'callback', component: CallbackComponent},
   {path: 'goals', component: MainPageComponent, canActivate: [AuthGuard]},
-  {path: 'add-goal', component: AddGoalPageComponent},
+  {path: 'add-goal', component: AddGoalPageComponent, canActivate: [AuthGuard]},
   {path: 'goal/:id', component: DetailPageComponent}
 ];
 

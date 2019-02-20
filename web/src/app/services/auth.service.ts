@@ -3,6 +3,7 @@ import { Router } from "@angular/router";
 import * as auth0 from "auth0-js";
 import { environment } from './../../environments/environment';
 import { BehaviorSubject } from "rxjs";
+import { UserService } from "./user.service";
 
 (window as any).global = window;
 
@@ -23,7 +24,7 @@ export class AuthService {
     scope: environment.auth.scope
   });
 
-  constructor(public router: Router) {
+  constructor(public router: Router, private userService: UserService) {
     this.getAccessToken();
   }
 
@@ -57,6 +58,7 @@ export class AuthService {
     this.auth0.client.userInfo(authResult.accessToken, (err, profile) => {
       if (profile) {
         this._setSession(authResult, profile);
+        this.userService.postUser$(profile);
         this.router.navigate(['goals']);
       }
     });

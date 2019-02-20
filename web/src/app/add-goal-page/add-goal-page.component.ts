@@ -3,6 +3,7 @@ import { FormGroup, FormControl, Validators, FormGroupDirective, NgForm } from '
 import { Router } from '@angular/router';
 import { GoalService } from '../services/goal.service';
 import { Goal } from '../models/goal.model';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-add-goal-page',
@@ -11,10 +12,13 @@ import { Goal } from '../models/goal.model';
 })
 export class AddGoalPageComponent implements OnInit {
   addGoalForm: FormGroup;
+  userId
 
   @ViewChild('title') title: ElementRef;
 
-  constructor( private router: Router, private goalService: GoalService) { }
+  constructor( private router: Router, private goalService: GoalService, private userService: UserService) {
+    this.userService.user$.subscribe(user => this.userId = user._id );
+   }
 
   ngOnInit() {
     this.title.nativeElement.focus();
@@ -27,6 +31,7 @@ export class AddGoalPageComponent implements OnInit {
   onAddGoal() {
     if (this.addGoalForm.valid) {
       const goal: Goal = this.addGoalForm.value;
+      goal.creator = this.userId;
       this.goalService.postGoal(goal)
         .then(result => {
           this.router.navigate(['goals']);

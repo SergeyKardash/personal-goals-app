@@ -12,6 +12,7 @@ import { Goal } from "../models/goal.model";
 import { MatSelect, MatDialog } from "@angular/material";
 import { InviteUserComponent } from "../dialogs/invite-user/invite-user.component";
 import { CommentService } from "../services/comment.service";
+import { UserService } from "../services/user.service";
 
 @Component({
   selector: "app-detail-page",
@@ -29,6 +30,7 @@ export class DetailPageComponent implements OnInit, OnDestroy {
   feedbackUserEmail: string;
   showCreateComment = false;
   now = Date.now();
+  isCreator = false;
 
   @ViewChild("goalTitle") goalTitle: ElementRef;
   @ViewChild("goalDescription") goalDescription: ElementRef;
@@ -40,7 +42,8 @@ export class DetailPageComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private goalService: GoalService,
     private commentService: CommentService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    public userService: UserService
   ) {}
 
   ngOnInit() {
@@ -54,6 +57,12 @@ export class DetailPageComponent implements OnInit, OnDestroy {
         switchMap((goal: Goal) => {
           this.goal = goal;
           this.comments = goal.comments.reverse();
+          return this.userService.user$;
+        }),
+        switchMap((user: any) => {
+          if (user) {
+            this.isCreator = this.goal.creator === user._id ? true : false;
+          }
           return this.route.queryParams;
         })
       )

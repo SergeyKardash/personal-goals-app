@@ -1,4 +1,4 @@
 <header>
   <div class="title" (click)="navigateOnMainPage()">Personal Goals</div>
-  <div class="user">{{(auth.userProfile$ | async)?.name}}</div>
+  <div class="user">{{(auth.userProfile$ | async)?.name}} <div (click)="onLogout()">Logout</div> </div>
 </header>

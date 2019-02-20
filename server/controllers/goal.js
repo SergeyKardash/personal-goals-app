@@ -1,5 +1,6 @@
 const Goal = require('../models/goal');
 const Comment = require('../models/comment');
+const User = require('../models/user');
 const dotenv = require('dotenv');
 dotenv.config();
 const nodemailer = require("nodemailer");
@@ -44,13 +45,22 @@ exports.createGoal = (req, res, next) => {
   const title = req.body.title;
   const description = req.body.description;
   const status = req.body.status;
+  const creator = req.body.creator;
   const goal = new Goal({
     title: title, 
     description: description,
-    status: status
+    status: status,
+    creator: creator
   });
   goal.save()
     .then(result => {
+      return User.findById(creator)
+    })
+    .then(user => {
+      user.goals.push(goal)
+      return user.save()
+    })
+    .then (result => {
       res.status(201).json({
         goal: result
       });
@@ -114,7 +124,15 @@ exports.deleteGoal = (req, res, next) => {
       return Goal.findByIdAndRemove(goalId)
     })
     .then((result) => {
-      res.status(200).json({message: 'Goal deleted', goal: result})
+      User.findById(result.creator)
+      .then(user => {
+        const index = user.goals.indexOf(goalId)
+        user.goals.splice(index, 1)
+        user.save()
+      })
+      .then(result => {
+        res.status(200).json({message: 'Goal deleted'})
+      })
     })
     .catch(err => {
       if (!err.statusCode) {
@@ -145,7 +163,6 @@ exports.sendEmailForFeedback = (req, res, next) => {
     if (err) {
       next(err);
     } else {
-      console.log(info);
       res.status(200).json({msg: 'success'})
     }
   });
