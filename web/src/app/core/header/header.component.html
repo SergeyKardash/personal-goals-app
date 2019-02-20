@@ -1,4 +1,6 @@
 <header>
   <div class="title" (click)="navigateOnMainPage()">Personal Goals</div>
-  <div class="user">{{(auth.userProfile$ | async)?.name}} <div (click)="onLogout()">Logout</div> </div>
+  <div class="user">{{(auth.userProfile$ | async)?.name}} 
+    <mat-icon (click)="onLogout()" title="Logout">exit_to_app</mat-icon>
+  </div>
 </header>

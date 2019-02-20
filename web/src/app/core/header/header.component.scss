@@ -12,6 +12,14 @@ header {
     font-size: 20px;
     cursor: pointer;
   }
+  .user {
+    display: flex;
+    align-items: center;
+    mat-icon {
+      margin-left: 10px;
+      cursor: pointer;
+    }
+  }
 }
 
 @media (max-width: 900px) {

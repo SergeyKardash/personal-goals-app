@@ -1,4 +1,18 @@
 /* You can add global styles to this file, and also import other style files */
+@import "~ng-snotify/styles/material";
+
+.snotify-success {
+  background-color: #42a5f5;
+  .snotifyToast__progressBar {
+    background-color: #fff
+  }
+  .snotifyToast__progressBar__percentage {
+    background-color: #42a5f5
+  }
+  .snotifyToast__body {
+    color: #fff;
+  }
+}
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

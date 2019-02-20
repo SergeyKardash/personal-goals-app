@@ -82,13 +82,13 @@
           <div class="comment-card-date">{{comment.updatedAt | date : 'M.d.yyyy HH:mm'}}</div>
         </div>
         <div class="comment-card-header-right">
-          <button *ngIf="!comment.editMode" mat-raised-button title="Edit Comment" class="blue-button edit" (click)="onEditComment(comment)">
+          <button *ngIf="!comment.editMode && comment.userEmail === feedbackUserEmail" mat-raised-button title="Edit Comment" class="blue-button edit" (click)="onEditComment(comment)">
             <mat-icon>edit</mat-icon>
           </button>
           <button *ngIf="comment.editMode"  mat-raised-button title="Save Comment" class="green-button save" (click)="onSaveComment(comment)">
               <mat-icon>save</mat-icon>
             </button>
-          <button mat-raised-button title="Remove Comment" class="red-button delete" (click)="onRemoveComment(comment)">
+          <button *ngIf="comment.userEmail === feedbackUserEmail || isCreator" mat-raised-button title="Remove Comment" class="red-button delete" (click)="onRemoveComment(comment)">
             <mat-icon>delete</mat-icon>
           </button>
         </div>

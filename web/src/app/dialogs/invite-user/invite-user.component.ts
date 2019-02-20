@@ -9,6 +9,7 @@ import { FormGroup, FormControl, Validators } from "@angular/forms";
 import { GoalService } from "src/app/services/goal.service";
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material";
 import { Router } from "@angular/router";
+import { SnotifyService } from "ng-snotify";
 
 @Component({
   selector: "app-invite-user",
@@ -24,7 +25,8 @@ export class InviteUserComponent implements OnInit {
     private goalService: GoalService,
     @Inject(MAT_DIALOG_DATA) public data,
     public dialogRef: MatDialogRef<InviteUserComponent>,
-    private router: Router
+    private router: Router,
+    private snotifyService: SnotifyService
   ) {
     this.goal = this.data;
   }
@@ -52,7 +54,23 @@ export class InviteUserComponent implements OnInit {
       }
       this.goal.canComment.push(email);
       this.goalService.updateGoal(this.goal).then(() => {
-        this.goalService.sendEmail({email: email, link: link});
+        this.goalService.sendEmail({email: email, link: link})
+          .then(result => {
+            this.snotifyService.success(`User: ${email} successfully invited`, {
+              timeout: 3000,
+              showProgressBar: true,
+              closeOnClick: false,
+              pauseOnHover: true
+            });
+          })
+          .catch((err) => {
+            this.snotifyService.error(`Something went wrong. Please try again`, {
+              timeout: 3000,
+              showProgressBar: true,
+              closeOnClick: false,
+              pauseOnHover: true
+            });
+          });
         this.dialogRef.close();
       });
     }

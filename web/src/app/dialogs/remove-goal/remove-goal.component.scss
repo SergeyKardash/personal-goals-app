@@ -1,0 +1,23 @@
+button {
+  margin-right: 15px;
+  color: #fff;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+  &.red-button {
+    background-color: #ff5722;
+    &:hover {
+      background-color: #f44336;
+    }
+  }
+
+  &.white-button {
+    color: #666;
+  }
+  &:hover {
+    background-color: #ede7f6;
+  }
+  .mat-icon {
+    font-size: 20px;
+    position: relative;
+    left: 1px;
+  }
+}

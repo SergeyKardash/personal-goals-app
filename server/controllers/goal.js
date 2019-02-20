@@ -52,8 +52,10 @@ exports.createGoal = (req, res, next) => {
     status: status,
     creator: creator
   });
+  let goalResult;
   goal.save()
     .then(result => {
+      goalResult = result;
       return User.findById(creator)
     })
     .then(user => {
@@ -62,7 +64,8 @@ exports.createGoal = (req, res, next) => {
     })
     .then (result => {
       res.status(201).json({
-        goal: result
+        goal: goalResult,
+        user: result
       });
     })
     .catch(err => {

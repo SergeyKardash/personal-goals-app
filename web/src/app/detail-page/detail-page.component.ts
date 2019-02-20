@@ -13,6 +13,8 @@ import { MatSelect, MatDialog } from "@angular/material";
 import { InviteUserComponent } from "../dialogs/invite-user/invite-user.component";
 import { CommentService } from "../services/comment.service";
 import { UserService } from "../services/user.service";
+import { SnotifyService } from "ng-snotify";
+import { RemoveGoalComponent } from "../dialogs/remove-goal/remove-goal.component";
 
 @Component({
   selector: "app-detail-page",
@@ -43,7 +45,8 @@ export class DetailPageComponent implements OnInit, OnDestroy {
     private goalService: GoalService,
     private commentService: CommentService,
     public dialog: MatDialog,
-    public userService: UserService
+    public userService: UserService,
+    private snotifyService: SnotifyService
   ) {}
 
   ngOnInit() {
@@ -79,6 +82,10 @@ export class DetailPageComponent implements OnInit, OnDestroy {
               clearInterval(checkCommentMessage);
             }
           }, 100);
+        } else {
+          if (!this.isCreator) {
+            this.router.navigate(['/']);
+          }
         }
       });
   }
@@ -94,8 +101,23 @@ export class DetailPageComponent implements OnInit, OnDestroy {
     this.goal.title = title;
     this.goal.description = description;
     this.goal.status = status;
-    this.goalService.updateGoal(this.goal).then(result => {
+    this.goalService.updateGoal(this.goal)
+    .then((result: any) => {
       this.editMode = false;
+      this.snotifyService.success(`'${result.goal.title}' successfully updated`, {
+        timeout: 3000,
+        showProgressBar: true,
+        closeOnClick: false,
+        pauseOnHover: true
+      });
+    })
+    .catch(err => {
+      this.snotifyService.error(`Something went wrong. Please try again`, {
+        timeout: 3000,
+        showProgressBar: true,
+        closeOnClick: false,
+        pauseOnHover: true
+      });
     });
   }
 
@@ -107,8 +129,9 @@ export class DetailPageComponent implements OnInit, OnDestroy {
   }
 
   onRemove() {
-    this.goalService.removeGoal(this.goal._id).then(result => {
-      this.router.navigate(["goals"]);
+    const dialogRef = this.dialog.open(RemoveGoalComponent, {
+      width: "500px",
+      data: this.goal
     });
   }
 
